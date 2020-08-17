@@ -1,15 +1,13 @@
 import React from 'react';
+import Header from '../header';
+import { Layout, Main } from './app-components';
 
 function App() {
   return (
-    <div>
-      <header>
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a rel="noopener noreferrer">Learn React</a>
-      </header>
-    </div>
+    <Layout>
+      <Header />
+      <Main>test</Main>
+    </Layout>
   );
 }
 
