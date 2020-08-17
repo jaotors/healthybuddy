@@ -3,12 +3,18 @@ import './index.css'
 import * as serviceWorker from './serviceWorker'
 
 import App from './app/App'
+import { BrowserRouter } from 'react-router-dom'
+import { Grommet } from 'grommet'
 import React from 'react'
 import ReactDOM from 'react-dom'
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Grommet plain>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </Grommet>
   </React.StrictMode>,
   document.getElementById('root')
 )
