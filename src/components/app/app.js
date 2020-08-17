@@ -1,24 +1,13 @@
-import React, { useMemo, useState } from 'react'
-
-import { UserContext } from '../../store/UserContext'
-
-function App () {
-  const [user, setUser] = useState(null)
-
-  const value = useMemo(() => ({ user, setUser }), [user, setUser])
+import React from 'react';
+import Header from '../header';
+import { Layout, Main } from './app-components';
 
   return (
-    <UserContext.Provider value={value}>
-      <div>
-        <header>
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a rel='noopener noreferrer'>Learn React</a>
-        </header>
-      </div>
-    </UserContext.Provider>
-  )
+    <Layout>
+      <Header />
+      <Main>test</Main>
+    </Layout>
+  );
 }
 
 export default App

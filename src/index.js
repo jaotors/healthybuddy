@@ -10,7 +10,7 @@ import ReactDOM from 'react-dom';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Grommet plain>
+    <Grommet plain style={{ height: '100%' }}>
       <BrowserRouter>
         <App />
       </BrowserRouter>
