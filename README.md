@@ -1,5 +1,5 @@
 # HealthyBuddy
-**(Temporary description)** Need to have a healthy diet? and of course a advise from expert. Check it here [https://healthybuddy.vercel.app/](https://healthybuddy.vercel.app/)
+HealthBuddy ultimately provides you the convenience to access certified nutritionists and build healthy eating habits suitable to the Filipino lifestyle. Check it here [https://healthybuddy.vercel.app/](https://healthybuddy.vercel.app/)
 
 #### Installation
 
