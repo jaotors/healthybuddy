@@ -15,7 +15,7 @@ export const UserProvider = (props) => {
         firstname: 'fakerfirstname',
         lastname: 'fakerlastname',
       });
-    }, 10000);
+    }, 5000);
 
     return () => {
       clearTimeout(test);
