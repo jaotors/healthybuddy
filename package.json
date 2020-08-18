@@ -9,6 +9,7 @@
     "grommet": "^2.14.0",
     "grommet-icons": "^4.4.0",
     "history": "^5.0.0",
+    "jsonwebtoken": "^8.5.1",
     "qs": "^6.9.4",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
