@@ -16,6 +16,11 @@ import React, { useEffect, useState } from 'react'
 
 const day = ['brealfast', 'lunch', 'dinner']
 
+const defaultOptions = []
+for (let i = 1; i <= 200; i += 1) {
+  defaultOptions.push(`option ${i}`)
+}
+
 const CreateMealPlan = () => {
   const [startDate, setstartDate] = useState(null)
   const [endDate, setEndDate] = useState(null)
@@ -27,6 +32,9 @@ const CreateMealPlan = () => {
   const onOpen = () => setOpen(true)
 
   const onClose = () => setOpen(undefined)
+
+  const [options, setOptions] = useState(defaultOptions)
+  const [value, setValue] = useState('')
 
   useEffect(() => {
     const newMeals = [
@@ -71,7 +79,7 @@ const CreateMealPlan = () => {
         </Box>
         <CaretNext color='brand' size='large' />
       </Box>
-      <Text>Brekfast</Text>
+      <Text>Breakfast</Text>
       <DataTable
         columns={columnsThemeSize}
         data={meals.filter(meal => meal.meal_time === 'breakfast')}
@@ -94,7 +102,6 @@ const CreateMealPlan = () => {
         }}
       />
       <Text>Dinner</Text>
-
       <DataTable
         columns={columnsThemeSize}
         data={meals.filter(meal => meal.meal_time === 'dinner')}
@@ -130,28 +137,40 @@ const CreateMealPlan = () => {
                 <Button icon={<Close />} onClick={onClose} />
               </Box>
               <Box flex='grow' overflow='auto' pad={{ vertical: 'medium' }}>
-                <FormField label='First'>
+                <FormField label='Food'>
+                  <Select
+                    size='medium'
+                    placeholder='Select'
+                    value={value}
+                    options={options}
+                    onChange={({ option }) => setValue(option)}
+                    onClose={() => setOptions(defaultOptions)}
+                    onSearch={text => {
+                      // The line below escapes regular expression special characters:
+                      // [ \ ^ $ . | ? * + ( )
+                      const escapedText = text.replace(
+                        /[-\\^$*+?.()|[\]{}]/g,
+                        '\\$&'
+                      )
+
+                      // Create the regular expression with modified value which
+                      // handles escaping special characters. Without escaping special
+                      // characters, errors will appear in the console
+                      const exp = new RegExp(escapedText, 'i')
+                      setOptions(defaultOptions.filter(o => exp.test(o)))
+                    }}
+                  />
+                </FormField>
+                <FormField label='grams'>
                   <TextInput />
                 </FormField>
                 <FormField label='Second'>
                   <Select
-                    options={[
-                      'one',
-                      'two',
-                      'three',
-                      'four',
-                      'five',
-                      'six',
-                      'seven',
-                      'eight'
-                    ]}
+                    options={['breakfast', 'lunch', 'dinner']}
                     value={select}
                     onSearch={() => {}}
                     onChange={({ option }) => setSelect(option)}
                   />
-                </FormField>
-                <FormField label='Third'>
-                  <TextArea />
                 </FormField>
               </Box>
               <Box flex={false} as='footer' align='start'>
