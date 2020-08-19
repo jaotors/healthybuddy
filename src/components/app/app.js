@@ -17,6 +17,7 @@ const App = () => {
           <Main>
             <Routes>
               <Route path='/' element={<Home />} />
+              <Route path='/meal' element={<CreateMealPlan />} />
             </Routes>
           </Main>
           <Footer />
