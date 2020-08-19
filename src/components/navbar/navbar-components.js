@@ -2,14 +2,14 @@ import { Anchor } from 'grommet';
 import styled from 'styled-components/macro';
 
 export const NavAnchor = styled(Anchor)`
-  color: #fff;
+  color: #444;
   text-decoration: none;
   padding: 19px 15px;
   text-align: center;
   transition: all 0.3s;
 
   &:hover {
-    box-shadow: inset 0px -4px 0px 0px #81fced;
+    box-shadow: inset 0px -4px 0px 0px #00008b;
     text-decoration: none;
   }
 `;

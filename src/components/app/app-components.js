@@ -27,7 +27,7 @@ export const Footer = () => (
       `}
       alignSelf="center"
     >
-      Healthy Buddy {new Date().getFullYear()}
+      HealthyBuddy {new Date().getFullYear()}
     </Text>
   </Box>
 );
