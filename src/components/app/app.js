@@ -1,6 +1,7 @@
 import { Footer, Layout, Main } from './app-components'
 import { Route, Routes } from 'react-router'
 
+import CreateMealPlan from '../../pages/dietitian/createMealPlan'
 import Header from '../header'
 import Home from '../../pages/home'
 import React from 'react'
@@ -17,6 +18,7 @@ const App = () => {
           <Main>
             <Routes>
               <Route path='/' element={<Home />} />
+              <Route path='/meal' element={<CreateMealPlan />} />
             </Routes>
           </Main>
           <Footer />
