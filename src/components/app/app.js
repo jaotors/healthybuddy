@@ -1,12 +1,12 @@
-import { Layout, Main, Footer } from './app-components';
-import React from 'react';
-import { Route, Routes } from 'react-router';
-import { ThemeContext } from 'grommet';
+import { Footer, Layout, Main } from './app-components'
+import { Route, Routes } from 'react-router'
 
-import Header from '../header';
-import Home from '../../pages/home';
-import { UserProvider } from '../../contexts/user-context';
-import { themes } from '../../contexts/theme-context';
+import Header from '../header'
+import Home from '../../pages/home'
+import React from 'react'
+import { ThemeContext } from 'grommet'
+import { UserProvider } from '../../contexts/user-context'
+import { themes } from '../../contexts/theme-context'
 
 const App = () => {
   return (
@@ -16,14 +16,14 @@ const App = () => {
           <Header />
           <Main>
             <Routes>
-              <Route path="/" element={<Home />} />
+              <Route path='/' element={<Home />} />
             </Routes>
           </Main>
           <Footer />
         </Layout>
       </UserProvider>
     </ThemeContext.Extend>
-  );
-};
+  )
+}
 
-export default App;
+export default App
