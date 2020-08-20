@@ -27,14 +27,17 @@ const CreateMealPlan = () => {
   const [meals, setMeals] = useState([])
 
   const [open, setOpen] = React.useState(false)
-  const [select, setSelect] = React.useState('')
+  const [mealTime, setMealTime] = React.useState('')
 
   const onOpen = () => setOpen(true)
 
   const onClose = () => setOpen(undefined)
-  const onSubmit = () => {
+
+  const onSubmit = newMeal => {
+    setMeals([newMeal, ...meals])
     onClose()
   }
+
   const [options, setOptions] = useState(defaultOptions)
   const [value, setValue] = useState('')
   const [selectedRecipe, setSelectedRecipe] = useState(null)
@@ -75,14 +78,14 @@ const CreateMealPlan = () => {
     { property: 'food', header: 'Food', size: 'small' },
     { property: 'grams', header: 'Grams', size: 'xsmall' },
     { property: 'calories', header: 'Calories', size: 'xsmall' },
-    { property: 'protein', header: 'Protein', size: 'xsmall', align: 'end' },
-    { property: 'fat', header: 'Fat', size: 'xsmall', align: 'end' },
-    { property: 'carbs', header: 'Carbohydrates', size: 'xsmall', align: 'end' }
+    { property: 'protein', header: 'Protein', size: 'xsmall' },
+    { property: 'fat', header: 'Fat', size: 'xsmall' },
+    { property: 'carbs', header: 'Carbohydrates', size: 'xsmall' }
   ]
 
   return (
     <>
-      {console.log(selectedRecipe)}
+      {console.log(meals)}
       <Box direction='row' justify='center'>
         <CaretPrevious color='brand' size='large' />
         <Box border width='large' justify='center' align='center'>
@@ -92,35 +95,46 @@ const CreateMealPlan = () => {
       </Box>
       <Text>Breakfast</Text>
       <DataTable
+        pad={{ horizontal: 'medium' }}
         columns={columnsThemeSize}
         data={meals.filter(meal => meal.meal_time === 'breakfast')}
         primaryKey={false}
-        border={{
-          color: 'border',
-          side: 'vertical',
-          size: '1px'
+        // border={{
+        //   color: 'border',
+        //   side: 'vertical',
+        //   size: '1px'
+        // }}
+        border
+        background={{
+          header: 'dark-3',
+          body: ['light-1', 'light-3'],
+          footer: 'dark-3'
         }}
       />
       <Text>Lunch</Text>
       <DataTable
+        pad={{ horizontal: 'medium' }}
         columns={columnsThemeSize}
         data={meals.filter(meal => meal.meal_time === 'lunch')}
         primaryKey={false}
-        border={{
-          color: 'border',
-          side: 'vertical',
-          size: '1px'
+        border
+        background={{
+          header: 'dark-3',
+          body: ['light-1', 'light-3'],
+          footer: 'dark-3'
         }}
       />
       <Text>Dinner</Text>
       <DataTable
+        pad={{ horizontal: 'medium' }}
         columns={columnsThemeSize}
         data={meals.filter(meal => meal.meal_time === 'dinner')}
         primaryKey={false}
-        border={{
-          color: 'border',
-          side: 'vertical',
-          size: '1px'
+        border
+        background={{
+          header: 'dark-3',
+          body: ['light-1', 'light-3'],
+          footer: 'dark-3'
         }}
       />
       <Box fill align='center' justify='center'>
@@ -181,12 +195,12 @@ const CreateMealPlan = () => {
                 <FormField label='Meal Time'>
                   <Select
                     options={['breakfast', 'lunch', 'dinner']}
-                    value={select}
+                    value={mealTime}
                     onSearch={() => {}}
-                    onChange={({ option }) => setSelect(option)}
+                    onChange={({ option }) => setMealTime(option)}
                   />
                 </FormField>
-                <FormField label='calories'>
+                <FormField label='Calories'>
                   <TextInput
                     disabled
                     value={
@@ -195,7 +209,7 @@ const CreateMealPlan = () => {
                     }
                   />
                 </FormField>
-                <FormField label='fat'>
+                <FormField label='Fat'>
                   <TextInput
                     disabled
                     value={
@@ -204,7 +218,7 @@ const CreateMealPlan = () => {
                     }
                   />
                 </FormField>
-                <FormField label='protein'>
+                <FormField label='Protein'>
                   <TextInput
                     disabled
                     value={
@@ -213,7 +227,7 @@ const CreateMealPlan = () => {
                     }
                   />
                 </FormField>
-                <FormField label='carbohydrates'>
+                <FormField label='Carbohydrates'>
                   <TextInput
                     disabled
                     value={
@@ -227,7 +241,18 @@ const CreateMealPlan = () => {
                 <Button
                   type='submit'
                   label='Submit'
-                  onClick={onSubmit}
+                  onClick={event => {
+                    event.preventDefault()
+                    onSubmit({
+                      food: selectedRecipe.recipe,
+                      grams: serving,
+                      fat: (selectedRecipe.fat * serving) / 10,
+                      protein: (selectedRecipe.protein * serving) / 10,
+                      carb: (selectedRecipe.carb * serving) / 10,
+                      calories: calculateTotalCalories(selectedRecipe, serving),
+                      meal_time: mealTime
+                    })
+                  }}
                   primary
                 />
               </Box>
