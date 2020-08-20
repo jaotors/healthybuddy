@@ -24,7 +24,7 @@ export const GetStarted = ({ onClick }) => (
       `}
       margin="none"
     >
-      Be the best Version of You
+      Be the Best Version of You
     </Heading>
     <Button
       label="Get Started"
