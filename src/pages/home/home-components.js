@@ -314,19 +314,12 @@ export const RegisterPage = ({ onRegister }) => {
             />
           </FormField>
           <Box direction="row" gap="small">
-            <FormField
-              name="preferences"
-              label="Meal Preferences"
-              css={`
-                width: 100%;
-              `}
-            >
-              <TextInput
+            <FormField label="Meal Preferences">
+              <Select
                 id="preferences"
-                placeholder="Meal Preferences"
-                name="preferences"
+                options={['Vegan', 'Pescetarian', 'Gluten-Free', 'Muscle Gain']}
                 value={preferences}
-                onChange={(e) => setPreferences(e.target.value)}
+                onChange={({ option }) => setPreferences(option)}
               />
             </FormField>
             <FormField
@@ -349,7 +342,7 @@ export const RegisterPage = ({ onRegister }) => {
           <Box direction="row" gap="small">
             <FormField
               name="weight"
-              label="Weight"
+              label="Weight (kgs)"
               css={`
                 width: 100%;
               `}
