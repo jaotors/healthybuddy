@@ -1,12 +1,11 @@
 import { Layout, Main, Footer } from './app-components';
 import React from 'react';
-import { Route, Routes } from 'react-router';
 import { ThemeContext } from 'grommet';
 
 import Header from '../header';
-import Home from '../../pages/home';
 import { UserProvider, DietitianProvider } from '../../contexts';
 import { themes } from '../../contexts/theme-context';
+import AppRoutes from '../../routes';
 
 const App = () => {
   return (
@@ -16,9 +15,7 @@ const App = () => {
           <Layout>
             <Header />
             <Main>
-              <Routes>
-                <Route path="/" element={<Home />} />
-              </Routes>
+              <AppRoutes />
             </Main>
             <Footer />
           </Layout>
