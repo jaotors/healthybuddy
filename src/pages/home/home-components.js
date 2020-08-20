@@ -55,30 +55,83 @@ export const BodyGoals = ({ onClick }) => (
       My Goal is...
     </Heading>
     <Box direction="row" justify="between">
-      <Button
-        label="Gain Muscle Mass"
+      <Box
+        direction="column"
+        css={`
+          width: 40%;
+        `}
         onClick={() => onClick('gain muscle mass')}
+      >
+        <div
+          css={`
+            margin-bottom: 10px;
+          `}
+        >
+          <img
+            css={`
+              width: 100%;
+              height: 428px;
+              border-radius: 15px;
+            `}
+            src="https://miro.medium.com/max/11232/1*xk4zmUpGTcs3HpevFU9QgQ.jpeg"
+            alt="Muscle Mass"
+          />
+        </div>
+        <Button
+          label="Gain Muscle Mass"
+          onClick={(e) => {
+            e.stopPropagation();
+            onClick('gain muscle mass');
+          }}
+          css={`
+            width: 100%;
+            font-size: 35px;
+            padding: 20px;
+            font-weight: bold;
+            color: #444;
+            transform: capitalize;
+          `}
+        />
+      </Box>
+      <Box
+        direction="column"
         css={`
           width: 40%;
-          font-size: 35px;
-          padding: 20px;
-          font-weight: bold;
-          color: #444;
-          transform: capitalize;
         `}
-      />
-      <Button
-        label="Maintain Weight"
         onClick={() => onClick('maintain weight')}
-        css={`
-          width: 40%;
-          font-size: 35px;
-          padding: 20px;
-          font-weight: bold;
-          color: #444;
-          transform: capitalize;
-        `}
-      />
+      >
+        <div
+          css={`
+            margin-bottom: 10px;
+          `}
+        >
+          <img
+            css={`
+              width: 100%;
+              height: 428px;
+              border-radius: 15px;
+              border: 1px solid rgba(0, 0, 0, 0.1);
+            `}
+            src="https://www.fashionlady.in/wp-content/uploads/2017/05/ways-to-become-slim-naturally.jpg"
+            alt="Maintain Weight"
+          />
+        </div>
+        <Button
+          label="Maintain Weight"
+          onClick={(e) => {
+            e.stopPropagation();
+            onClick('maintain weight');
+          }}
+          css={`
+            width: 100%;
+            font-size: 35px;
+            padding: 20px;
+            font-weight: bold;
+            color: #444;
+            transform: capitalize;
+          `}
+        />
+      </Box>
     </Box>
   </Box>
 );
