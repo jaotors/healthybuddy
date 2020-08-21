@@ -1,4 +1,4 @@
-import { Box, List, Text } from 'grommet'
+import { Box, Button, List, Text, TextInput } from 'grommet'
 import React, { useContext, useEffect, useState } from 'react'
 
 import { UserContext } from '../../contexts/user-context'
@@ -25,6 +25,16 @@ const fakeNutritionist = {
         dietary_preference: '',
         gender: '',
         user_id: 4,
+        user: {
+          id: 4,
+          created_at: '2020-08-19T16:37:18.225724Z',
+          updated_at: '2020-08-19T16:37:18.225724Z',
+          deleted_at: null,
+          email: 'asdf@gmailc.om',
+          first_name: 'asdd',
+          last_name: 'fdasadf',
+          type: 'customer'
+        },
         dietitian_id: 1,
         dietitian: null,
         meal_plan: null
@@ -41,6 +51,16 @@ const fakeNutritionist = {
         dietary_preference: '',
         gender: '',
         user_id: 5,
+        user: {
+          id: 5,
+          created_at: '2020-08-19T16:39:30.290874Z',
+          updated_at: '2020-08-19T16:39:30.290874Z',
+          deleted_at: null,
+          email: 'asdf@gmail.zom',
+          first_name: 'jos',
+          last_name: 'uaaas',
+          type: 'customer'
+        },
         dietitian_id: 1,
         dietitian: null,
         meal_plan: null
@@ -57,6 +77,16 @@ const fakeNutritionist = {
         dietary_preference: '',
         gender: 'Male',
         user_id: 6,
+        user: {
+          id: 6,
+          created_at: '2020-08-19T16:42:47.447507Z',
+          updated_at: '2020-08-19T16:42:47.447507Z',
+          deleted_at: null,
+          email: 'ramosjosemari+1200@gmail.com',
+          first_name: 'assdf',
+          last_name: 'fdddss',
+          type: 'customer'
+        },
         dietitian_id: 1,
         dietitian: null,
         meal_plan: null
@@ -73,6 +103,16 @@ const fakeNutritionist = {
         dietary_preference: 'Ketogenic',
         gender: 'Male',
         user_id: 7,
+        user: {
+          id: 7,
+          created_at: '2020-08-19T23:52:07.698649Z',
+          updated_at: '2020-08-19T23:52:07.698649Z',
+          deleted_at: null,
+          email: 'ramosjosemari+10@gmail.com',
+          first_name: 'JM',
+          last_name: 'Ramos',
+          type: 'customer'
+        },
         dietitian_id: 1,
         dietitian: null,
         meal_plan: null
@@ -89,6 +129,16 @@ const fakeNutritionist = {
         dietary_preference: 'Vegan',
         gender: 'Female',
         user_id: 11,
+        user: {
+          id: 11,
+          created_at: '2020-08-20T23:26:20.191772Z',
+          updated_at: '2020-08-20T23:26:20.191772Z',
+          deleted_at: null,
+          email: 'iandjx@test.com',
+          first_name: 'ian',
+          last_name: 'dj',
+          type: 'customer'
+        },
         dietitian_id: 1,
         dietitian: null,
         meal_plan: null
@@ -124,6 +174,10 @@ const Dietitian = () => {
     }
   }, [user])
 
+  const onCreatePlan = customer => {
+    navigate('/create-meal-plan', { state: { ...customer } })
+  }
+
   return (
     <Box>
       {customers && (
@@ -131,12 +185,29 @@ const Dietitian = () => {
           {(datum, index) => (
             <Box
               key={index}
-              direction='row-responsive'
+              direction='column-responsive'
               gap='large'
               size='xsmall'
               align='center'
             >
-              <Text weight='bold'>{datum.user_id}</Text>
+              <Box width='33%'>
+                <Text weight='bold'>
+                  {`${datum.user.first_name} ${datum.user.last_name}`}
+                </Text>
+                <Text>Goal: {datum.goal}</Text>
+                <Text>Allergy: {datum.allergy}</Text>
+                <Text>Height: {datum.height}</Text>
+              </Box>
+              <Box width='33%'>
+                <Text>Weight: {datum.weight}</Text>
+                <Text>Gender: {datum.gender}</Text>
+                <Text>Dietary Preferences: {datum.dietary_preference}</Text>
+              </Box>
+              <Box width='33%' justify='end' align='end' alignContent='end'>
+                <Button onClick={() => onCreatePlan(datum)}>
+                  Create Meal Plan
+                </Button>
+              </Box>
             </Box>
           )}
         </List>

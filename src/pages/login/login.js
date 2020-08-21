@@ -1,6 +1,3 @@
-import React, { useState } from 'react'
-import { Box } from 'grommet'
-import { useNavigate } from 'react-router-dom'
 import 'styled-components/macro'
 
 import * as Api from '../../api'
@@ -10,6 +7,7 @@ import React, { useState } from 'react'
 import { Box } from 'grommet'
 import Loading from '../../components/loading'
 import { LoginForm } from './login-components'
+import { useNavigate } from 'react-router-dom'
 
 const Login = () => {
   const navigate = useNavigate()

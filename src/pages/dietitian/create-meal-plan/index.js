@@ -1,3 +1,2 @@
-import CreateMealPlan from './createMealPlan'
-
+import CreateMealPlan from './create-meal-plan'
 export default CreateMealPlan
