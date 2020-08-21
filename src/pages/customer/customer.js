@@ -7,7 +7,16 @@ import {
   MealDay,
 } from './customer-components';
 
+import * as Api from '../../api';
+
 const Customer = () => {
+  const [customer, setCustomer] = useState({});
+
+  useEffect(() => {
+    // implementing api in here to add it to customer
+    (async () => {})();
+  }, []);
+
   return (
     <Layout>
       <Greetings />

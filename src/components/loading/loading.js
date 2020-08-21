@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Layer } from 'grommet';
 import styled, { keyframes } from 'styled-components/macro';
 
