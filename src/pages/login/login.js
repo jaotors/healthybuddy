@@ -24,6 +24,9 @@ const Login = () => {
         case 'customer':
           navigate('/customer');
           break;
+        default:
+          navigate('');
+          break;
       }
     } catch (error) {
       setOpened(false);

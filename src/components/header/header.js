@@ -1,8 +1,7 @@
-import { Header as GrommetHeader, Text } from 'grommet';
 import React from 'react';
-// don't remove the styled-components/macro
-// its the way we can use css={``} in a component
-import styled from 'styled-components/macro';
+import 'styled-components/macro';
+import { Header as GrommetHeader } from 'grommet';
+
 import NavBar from '../navbar';
 import { Logo } from './header-components';
 

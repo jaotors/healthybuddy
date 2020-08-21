@@ -1,5 +1,6 @@
 import React, { useState, useCallback, useContext } from 'react';
-import styled from 'styled-components/macro';
+import 'styled-components/macro';
+
 import { DietitianContext } from '../../contexts/dietitians-context';
 import { Box, Button } from 'grommet';
 import { LinkPrevious } from 'grommet-icons';
@@ -43,7 +44,7 @@ const Home = () => {
   const onRegister = useCallback(
     async (meta) => {
       setSteps((state) => ++state);
-      const test = await registerCustomer({
+      await registerCustomer({
         email_address: meta.email,
         first_name: meta.firstname,
         last_name: meta.lastname,
@@ -59,11 +60,6 @@ const Home = () => {
     },
     [data]
   );
-
-  const onReset = () => {
-    setSteps(0);
-    setData(INITIAL_DATA);
-  };
 
   const renderView = useCallback(() => {
     switch (steps) {

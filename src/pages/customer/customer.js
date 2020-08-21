@@ -29,14 +29,12 @@ const INITIAL_DATA = {
 
 const Customer = () => {
   const [info, setInfo] = useState(INITIAL_DATA);
-  const [loading, setLoading] = useState(false);
   const [opened, setOpened] = useState(false);
 
   useEffect(() => {
     // implementing api in here to add it to customer
     (async () => {
       setOpened(true);
-      setLoading(true);
       const accessToken = localStorage.getItem('access_token');
       const { data } = await Api.getCustomer(accessToken);
 
@@ -54,13 +52,12 @@ const Customer = () => {
         },
         firstname: data.user.first_name,
       });
-      setLoading(false);
       setOpened(false);
       console.log('data', data);
     })();
   }, []);
 
-  console.log(info.meal)
+  console.log(info.meal);
 
   return (
     <Layout>

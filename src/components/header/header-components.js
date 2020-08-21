@@ -1,6 +1,7 @@
 import React from 'react';
-import styled from 'styled-components/macro';
+import 'styled-components/macro';
 import { Text, Box } from 'grommet';
+
 import LogoImg from '../../assets/images/app-logo.png';
 
 export const Logo = () => (
