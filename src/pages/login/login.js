@@ -1,33 +1,35 @@
-import React, { useState } from 'react';
-import { Box } from 'grommet';
-import 'styled-components/macro';
+import 'styled-components/macro'
 
-import * as Api from '../../api';
-import { LoginForm } from './login-components';
-import Loading from '../../components/loading';
+import * as Api from '../../api'
+
+import React, { useState } from 'react'
+
+import { Box } from 'grommet'
+import Loading from '../../components/loading'
+import { LoginForm } from './login-components'
 
 const Login = () => {
-  const [opened, setOpened] = useState();
+  const [opened, setOpened] = useState()
   const onClick = async ({ email, password }) => {
-    setOpened(true);
+    setOpened(true)
     try {
-      const { data } = await Api.login({ email, password });
+      const { data } = await Api.login({ email, password })
       localStorage.setItem()
     } catch (error) {
       setOpened(false)
     }
-  };
+  }
 
   const onClose = () => {
-    setOpened(false);
-  };
+    setOpened(false)
+  }
 
   return (
     <>
       <Box
-        direction="row"
-        justify="center"
-        alignContent="center"
+        direction='row'
+        justify='center'
+        alignContent='center'
         css={`
           width: 25%;
         `}
@@ -36,7 +38,7 @@ const Login = () => {
       </Box>
       {opened && <Loading onClose={onClose} />}
     </>
-  );
-};
+  )
+}
 
-export default Login;
+export default Login

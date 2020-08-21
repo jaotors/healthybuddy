@@ -2,6 +2,7 @@ import { DietitianProvider, UserProvider } from '../../contexts'
 import { Footer, Layout, Main } from './app-components'
 
 import AppRoutes from '../../routes'
+import Dietitian from '../../pages/dietitian'
 import Header from '../header'
 import React from 'react'
 import { ThemeContext } from 'grommet'
@@ -15,7 +16,8 @@ const App = () => {
           <Layout>
             <Header />
             <Main>
-              <AppRoutes />
+              {/* <AppRoutes /> */}
+              <Dietitian />
             </Main>
             <Footer />
           </Layout>
