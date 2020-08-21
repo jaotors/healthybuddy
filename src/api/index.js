@@ -15,12 +15,12 @@ export const getDietitians = async () => {
   return data;
 };
 
-export const getAllProjects = async () => {
-  const data = Request.get('/projects');
-  return data;
-};
+export const getCustomer = async (token) => {
+  const data = await Request.get('/customer', {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
 
-export const getProject = async (projectId) => {
-  const data = Request.get(`/projects/${projectId}`);
   return data;
 };
