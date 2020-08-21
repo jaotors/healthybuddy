@@ -26,7 +26,7 @@ export const Greetings = ({ firstname }) => (
         margin-bottom: 23px;
       `}
     >
-      Hello Joshua{/* {firstname} */}!
+      Hello {firstname}!
     </Heading>
   </div>
 );
@@ -42,14 +42,7 @@ export const CustomerCalendar = ({ start, end }) => {
         border-left: 1px solid #444;
       `}
     >
-      <Calendar
-        disabled={true}
-        dates={[
-          ['2020-04-03', '2020-04-08'],
-          ['2020-05-03', '2020-05-08'],
-        ]}
-        range
-      />
+      <Calendar disabled={true} dates={[[start, end]]} range />
     </div>
   );
 };
@@ -88,11 +81,14 @@ export const MyDietitian = ({ dietitian }) => {
           />
         </div>
         <Text>
-          Joshua Turingan
-          {/* {dietitian && dietitian.firstname} {dietitian && dietitian.lastname} */}
+          {dietitian.firstname} {dietitian.lastname}
         </Text>
-        <Text>
-          Specialty: Sports Nutrition{/* {dietitian && dietitian.specialty} */}
+        <Text
+          css={`
+            text-transform: capitalize;
+          `}
+        >
+          Specialty: {dietitian.specialty}
         </Text>
       </Box>
     </div>
@@ -109,29 +105,49 @@ export const MealDay = ({ meal }) => {
         border-left: 1px solid #444;
       `}
     >
-      <Heading margin="none">Meal for the Day</Heading>
-      <Box direction="column">
-        <Box direction="column">
-          <Heading level={4}>Breakfast</Heading>
-          <Text>
-            Boiled Eggs (100 kcal), Orange Juice (150 kcal), Brown Rice (250
-            kcal){/* {meal && meal.breakfast} */}
-          </Text>
-        </Box>
-        <Box direction="column">
-          <Heading level={4}>Lunch</Heading>
-          <Text>
-            Boiled Eggs (100 kcal), Orange Juice (150 kcal), Brown Rice (250
-            kcal){/* {meal && meal.lunch} */}
-          </Text>
-        </Box>
-        <Box direction="column">
-          <Heading level={4}>Dinner</Heading>
-          <Text>
-            Boiled Eggs (100 kcal), Orange Juice (150 kcal), Brown Rice (250
-            kcal){/* {meal && meal.dinner} */}
-          </Text>
-        </Box>
+      <Box
+        direction="column"
+        css={`
+          margin-bottom: 15px;
+        `}
+      >
+        <Heading margin="none">Meal for the Day</Heading>
+        <Text>{meal.description}</Text>
+      </Box>
+      <Box
+        direction="column"
+        css={`
+          & > div:not(:last-child) {
+            margin-bottom: 20px;
+          }
+        `}
+      >
+        {meal.plan.map((m, key) => (
+          <Box direction="column" key={key}>
+            <Heading
+              level={4}
+              margin="none"
+              css={`
+                text-transform: capitalize;
+              `}
+            >
+              {m.time}{' '}
+              {m.description && (
+                <span
+                  css={`
+                    font-size: 13px;
+                    font-weight: normal;
+                    text-transform: none;
+                    vertical-align: middle;
+                  `}
+                >
+                  ({m.description})
+                </span>
+              )}
+            </Heading>
+            <Text>{m.meal.map(f => `${f.food} (${f.calories} kcal)`)}</Text>
+          </Box>
+        ))}
       </Box>
     </div>
   );
