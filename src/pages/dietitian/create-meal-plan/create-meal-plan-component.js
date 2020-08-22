@@ -122,7 +122,8 @@ export const AddMealItemForm = ({
   setMealTime,
   mealTime,
   selectedRecipe,
-  onSubmitMealItem
+  onSubmitMealItem,
+  currDate
 }) => {
   return (
     <>
@@ -231,6 +232,7 @@ export const AddMealItemForm = ({
               onClick={event => {
                 event.preventDefault()
                 onSubmitMealItem({
+                  date: currDate,
                   food: selectedRecipe.recipe,
                   grams: serving,
                   fat: (selectedRecipe.fat * serving) / 10,
@@ -251,7 +253,8 @@ export const AddMealItemForm = ({
 export const ConfirmationModal = ({
   onCloseConfirmation,
   setOpenConfirmation,
-  openConfirmation
+  openConfirmation,
+  submitMealPLan
 }) => {
   return (
     <Layer
@@ -275,7 +278,7 @@ export const ConfirmationModal = ({
           justify='end'
           pad={{ top: 'medium', bottom: 'small' }}
         >
-          <Button label='Submit' onClick={null} color='dark-3' />
+          <Button label='Submit' onClick={submitMealPLan} color='dark-3' />
           <Button
             label={
               <Text color='white'>

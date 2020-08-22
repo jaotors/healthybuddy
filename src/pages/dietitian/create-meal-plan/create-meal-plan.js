@@ -1,30 +1,20 @@
+import * as Api from '../../../api'
+
 import {
   AddMealItemForm,
   ConfirmationModal,
   MealPlanDataTable,
   RangeSelector
 } from './create-meal-plan-component'
-import {
-  Box,
-  Button,
-  DataTable,
-  FormField,
-  Heading,
-  Layer,
-  Select,
-  Text,
-  TextArea,
-  TextInput
-} from 'grommet'
+import { Box, Button } from 'grommet'
 import React, { useEffect, useState } from 'react'
 
 import { Add } from 'grommet-icons'
-import { DateInput } from 'grommet'
-import { calculateTotalCalories } from '../../../utils/calorieCalc'
 import { foodData } from '../../../fixtures/foodData'
 import moment from 'moment'
 
 const defaultOptions = foodData.map(food => food.recipe)
+const accessToken = localStorage.getItem('access_token')
 
 const CreateMealPlan = () => {
   // RangeSelector Props
@@ -32,6 +22,17 @@ const CreateMealPlan = () => {
   const [endDate, setEndDate] = useState('')
   const [mealCreateStart, setMealCreateStart] = useState(false)
   const [currDate, setCurrDate] = useState('')
+  const goPreviousDay = () => {
+    const previousDate = moment(currDate).subtract(1, 'days')
+    const currentDate = moment(currDate)
+    setCurrDate(previousDate.format())
+  }
+
+  const goNextDay = () => {
+    const nextDate = moment(currDate).add(1, 'days')
+    const currentDate = moment(currDate)
+    setCurrDate(nextDate.format('MM/DD/YYYY'))
+  }
 
   // AddMealItemForm Props
   const [meals, setMeals] = useState([])
@@ -48,20 +49,6 @@ const CreateMealPlan = () => {
     onCloseMealForm()
   }
 
-  const goPreviousDay = () => {
-    const previousDate = moment(currDate).subtract(1, 'days')
-    const currentDate = moment(currDate)
-
-    setCurrDate(previousDate.format())
-  }
-
-  const goNextDay = () => {
-    const nextDate = moment(currDate).add(1, 'days')
-    const currentDate = moment(currDate)
-
-    setCurrDate(nextDate.format('MM/DD/YYYY'))
-  }
-
   // ConfirmationModal Props
   const [openConfirmation, setOpenConfirmation] = useState(false)
   const onOpenConfirmation = () => {
@@ -69,6 +56,14 @@ const CreateMealPlan = () => {
   }
   const onCloseConfirmation = () => {
     setOpenConfirmation(undefined)
+  }
+  const submitMealPlan = async () => {
+    await Api.createMealPlan(accessToken, {
+      start_date: moment(startDate.format('YYYY-MM-DD')),
+      end_date: moment(endDate.format('YYYY-MM-DD')),
+      entries: meals
+    })
+    onCloseConfirmation()
   }
 
   useEffect(() => {
@@ -122,6 +117,7 @@ const CreateMealPlan = () => {
                 setMealTime={setMealTime}
                 selectedRecipe={selectedRecipe}
                 onSubmitMealItem={onSubmitMealItem}
+                currDate={currDate}
               />
             )}
 
@@ -134,6 +130,7 @@ const CreateMealPlan = () => {
                 onCloseConfirmation={onCloseConfirmation}
                 setOpenConfirmation={setOpenConfirmation}
                 openConfirmation={openConfirmation}
+                submitMealPlan={submitMealPlan}
               />
             )}
           </Box>
