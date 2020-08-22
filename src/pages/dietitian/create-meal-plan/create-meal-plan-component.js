@@ -8,8 +8,7 @@ import {
   Heading,
   Layer,
   Select,
-  Text,
-  TextInput,
+  Text, TextInput,
 } from 'grommet';
 import 'styled-components/macro';
 import moment from 'moment';
@@ -264,11 +263,11 @@ export const AddMealItemForm = ({
                 event.preventDefault();
                 onSubmitMealItem({
                   date: currDate,
-                  food: selectedRecipe.recipe,
-                  grams: serving,
-                  fat: (selectedRecipe.fat * serving) / 10,
-                  protein: (selectedRecipe.protein * serving) / 10,
-                  carb: (selectedRecipe.carb * serving) / 10,
+                  food_name: selectedRecipe.recipe,
+                  grams: parseFloat(serving),
+                  fat: ((selectedRecipe.fat * serving) / 10),
+                  protein: ((selectedRecipe.protein * serving) / 10),
+                  carb: ((selectedRecipe.carb * serving) / 10),
                   calories: calculateTotalCalories(selectedRecipe, serving),
                   meal_time: mealTime,
                 });

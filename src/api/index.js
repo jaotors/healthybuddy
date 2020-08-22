@@ -39,7 +39,8 @@ export const createMealPlan = async (token, params) => {
   const data = await Request.post('/dietitian/meal', {
     params,
     headers: {
-      Authorization: `Bearer ${token}`
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json'
     }
   })
 

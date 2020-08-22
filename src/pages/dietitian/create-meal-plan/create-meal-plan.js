@@ -87,6 +87,9 @@ const CreateMealPlan = () => {
 
   const submitMealPlan = useCallback(async () => {
     await Api.createMealPlan(accessToken, {
+      title: "Test",
+      remarks: "",
+      description: "what",
       customer_id: state.user_id,
       start_date: moment(startDate).format('YYYY-MM-DD'),
       end_date: moment(endDate).format('YYYY-MM-DD'),
