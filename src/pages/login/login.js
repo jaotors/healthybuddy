@@ -15,7 +15,10 @@ const Login = () => {
   const onClick = async ({ email, password }) => {
     setOpened(true)
     try {
-      const { data } = await Api.login({ email_address: email, password })
+      const { data } = await Api.login({
+        email_address: email,
+        password: password
+      })
       localStorage.setItem('access_token', data.access_token)
       setOpened(false)
 
