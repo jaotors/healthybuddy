@@ -50,7 +50,7 @@ export const MealPlanDataTable = ({ currDate, meals }) => {
     { property: 'calories', header: 'Calories', size: 'xsmall' },
     { property: 'protein', header: 'Protein', size: 'xsmall' },
     { property: 'fat', header: 'Fat', size: 'xsmall' },
-    { property: 'carbs', header: 'Carbohydrates', size: 'xsmall' }
+    { property: 'carb', header: 'Carbohydrates', size: 'xsmall' }
   ]
 
   return (
