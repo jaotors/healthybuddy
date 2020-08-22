@@ -1,4 +1,4 @@
-import {} from 'grommet-icons'
+import * as Api from '../../../api'
 
 import {
   AddMealItemForm,
@@ -6,33 +6,36 @@ import {
   MealPlanDataTable,
   RangeSelector
 } from './create-meal-plan-component'
-import {
-  Box,
-  Button,
-  DataTable,
-  FormField,
-  Heading,
-  Layer,
-  Select,
-  Text,
-  TextArea,
-  TextInput
-} from 'grommet'
+import { Box, Button } from 'grommet'
 import React, { useEffect, useState } from 'react'
 
 import { Add } from 'grommet-icons'
-import { DateInput } from 'grommet'
-import { calculateTotalCalories } from '../../../utils/calorieCalc'
 import { foodData } from '../../../fixtures/foodData'
+import moment from 'moment'
+import { useLocation } from 'react-router-dom'
 
 const defaultOptions = foodData.map(food => food.recipe)
+const accessToken = localStorage.getItem('access_token')
 
 const CreateMealPlan = () => {
+  const { state } = useLocation()
+
   // RangeSelector Props
   const [startDate, setstartDate] = useState('')
   const [endDate, setEndDate] = useState('')
   const [mealCreateStart, setMealCreateStart] = useState(false)
   const [currDate, setCurrDate] = useState('')
+  const goPreviousDay = () => {
+    const previousDate = moment(currDate).subtract(1, 'days')
+    const currentDate = moment(currDate)
+    setCurrDate(previousDate.format())
+  }
+
+  const goNextDay = () => {
+    const nextDate = moment(currDate).add(1, 'days')
+    const currentDate = moment(currDate)
+    setCurrDate(nextDate.format('MM/DD/YYYY'))
+  }
 
   // AddMealItemForm Props
   const [meals, setMeals] = useState([])
@@ -56,6 +59,39 @@ const CreateMealPlan = () => {
   }
   const onCloseConfirmation = () => {
     setOpenConfirmation(undefined)
+  }
+  // const submitMealPlan = async () => {
+  //   console.log('submit')
+
+  //   await Api.createMealPlan(accessToken, {
+  //     start_date: '2020-09-18',
+  //     end_date: '2020-09-20',
+  //     title: 'High Protein Diet, Low Carb Diet',
+  //     remarks: 'Please follow diet strictly and eat on time',
+  //     description: '80% protein, 20% carb diet for beginners.',
+  //     customer_id: 5,
+  //     meals: [
+  //       {
+  //         food_name: 'Caesar Salad',
+  //         carb: 10.5,
+  //         fat: 5.2,
+  //         calories: 120,
+  //         meal_time: 'snack',
+  //         description: 'Can be after dinner or after lunch',
+  //         date: '2020-09-18'
+  //       }
+  //     ]
+  //   })
+  // }
+
+  const submitMealPlan = async () => {
+    await Api.createMealPlan(accessToken, {
+      customer_id: state.user_id,
+      start_date: moment(startDate).format('YYYY-MM-DD'),
+      end_date: moment(endDate).format('YYYY-MM-DD'),
+      meals: meals
+    })
+    onCloseConfirmation()
   }
 
   useEffect(() => {
@@ -82,7 +118,12 @@ const CreateMealPlan = () => {
         />
       ) : (
         <>
-          <MealPlanDataTable currDate={currDate} meals={meals} />
+          <MealPlanDataTable
+            currDate={currDate}
+            meals={meals}
+            goNextDay={goNextDay}
+            goPreviousDay={goPreviousDay}
+          />
 
           <Box fill align='center' justify='center'>
             <Button
@@ -104,6 +145,7 @@ const CreateMealPlan = () => {
                 setMealTime={setMealTime}
                 selectedRecipe={selectedRecipe}
                 onSubmitMealItem={onSubmitMealItem}
+                currDate={currDate}
               />
             )}
 
@@ -116,6 +158,7 @@ const CreateMealPlan = () => {
                 onCloseConfirmation={onCloseConfirmation}
                 setOpenConfirmation={setOpenConfirmation}
                 openConfirmation={openConfirmation}
+                submitMealPlan={submitMealPlan}
               />
             )}
           </Box>

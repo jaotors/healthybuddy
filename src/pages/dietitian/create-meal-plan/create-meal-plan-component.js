@@ -43,7 +43,12 @@ export const RangeSelector = ({
   )
 }
 
-export const MealPlanDataTable = ({ currDate, meals }) => {
+export const MealPlanDataTable = ({
+  currDate,
+  meals,
+  goPreviousDay,
+  goNextDay
+}) => {
   const columnsThemeSize = [
     { property: 'food', header: 'Food', size: 'small' },
     { property: 'grams', header: 'Grams', size: 'xsmall' },
@@ -56,11 +61,11 @@ export const MealPlanDataTable = ({ currDate, meals }) => {
   return (
     <>
       <Box direction='row' justify='center'>
-        <CaretPrevious color='brand' size='large' />
+        <CaretPrevious color='brand' size='large' onClick={goPreviousDay} />
         <Box border width='large' justify='center' align='center'>
           <Text>{currDate}</Text>
         </Box>
-        <CaretNext color='brand' size='large' />
+        <CaretNext color='brand' size='large' onClick={goNextDay} />
       </Box>
       <Text>Breakfast</Text>
       <DataTable
@@ -117,7 +122,8 @@ export const AddMealItemForm = ({
   setMealTime,
   mealTime,
   selectedRecipe,
-  onSubmitMealItem
+  onSubmitMealItem,
+  currDate
 }) => {
   return (
     <>
@@ -226,6 +232,7 @@ export const AddMealItemForm = ({
               onClick={event => {
                 event.preventDefault()
                 onSubmitMealItem({
+                  date: currDate,
                   food: selectedRecipe.recipe,
                   grams: serving,
                   fat: (selectedRecipe.fat * serving) / 10,
@@ -246,7 +253,8 @@ export const AddMealItemForm = ({
 export const ConfirmationModal = ({
   onCloseConfirmation,
   setOpenConfirmation,
-  openConfirmation
+  openConfirmation,
+  submitMealPlan
 }) => {
   return (
     <Layer
@@ -270,7 +278,13 @@ export const ConfirmationModal = ({
           justify='end'
           pad={{ top: 'medium', bottom: 'small' }}
         >
-          <Button label='Submit' onClick={null} color='dark-3' />
+          <Button
+            label='Submit'
+            onClick={() => {
+              submitMealPlan()
+            }}
+            color='dark-3'
+          />
           <Button
             label={
               <Text color='white'>
