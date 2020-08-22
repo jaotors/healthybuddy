@@ -95,7 +95,7 @@ const Home = () => {
       default:
         break;
     }
-  }, []);
+  }, [navigate]);
 
   return (
     <Box

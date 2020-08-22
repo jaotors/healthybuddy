@@ -8,9 +8,11 @@ const Button = ({
   onClick,
   primary = true,
   type,
+  icon,
 }) => (
   <GrommetBtn
     type={type}
+    icon={icon}
     label={label}
     color={color}
     primary={primary}

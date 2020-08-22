@@ -1,65 +1,66 @@
-import * as Api from '../../../api'
+import * as Api from '../../../api';
 
 import {
   AddMealItemForm,
   ConfirmationModal,
   MealPlanDataTable,
-  RangeSelector
-} from './create-meal-plan-component'
-import { Box, Button } from 'grommet'
-import React, { useEffect, useState } from 'react'
+  RangeSelector,
+} from './create-meal-plan-component';
+import { Box } from 'grommet';
+import React, { useEffect, useState, useCallback } from 'react';
 
-import { Add } from 'grommet-icons'
-import { foodData } from '../../../fixtures/foodData'
-import moment from 'moment'
-import { useLocation } from 'react-router-dom'
+import { Add } from 'grommet-icons';
+import { foodData } from '../../../fixtures/foodData';
+import moment from 'moment';
+import { useLocation } from 'react-router-dom';
+import Button from '../../../components/button';
 
-const defaultOptions = foodData.map(food => food.recipe)
-const accessToken = localStorage.getItem('access_token')
+const defaultOptions = foodData.map((food) => food.recipe);
+const accessToken = localStorage.getItem('access_token');
 
 const CreateMealPlan = () => {
-  const { state } = useLocation()
+  const { state } = useLocation();
 
   // RangeSelector Props
-  const [startDate, setstartDate] = useState('')
-  const [endDate, setEndDate] = useState('')
-  const [mealCreateStart, setMealCreateStart] = useState(false)
-  const [currDate, setCurrDate] = useState('')
-  const goPreviousDay = () => {
-    const previousDate = moment(currDate).subtract(1, 'days')
-    const currentDate = moment(currDate)
-    setCurrDate(previousDate.format())
-  }
+  const [startDate, setstartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
+  const [mealCreateStart, setMealCreateStart] = useState(false);
+  const [currDate, setCurrDate] = useState('');
 
-  const goNextDay = () => {
-    const nextDate = moment(currDate).add(1, 'days')
-    const currentDate = moment(currDate)
-    setCurrDate(nextDate.format('MM/DD/YYYY'))
-  }
+  const goPreviousDay = useCallback(() => {
+    const previousDate = moment(currDate).subtract(1, 'days');
+    setCurrDate(previousDate.format());
+  }, [currDate]);
+
+  const goNextDay = useCallback(() => {
+    const nextDate = moment(currDate).add(1, 'days');
+    setCurrDate(nextDate.format('MM/DD/YYYY'));
+  }, [currDate]);
 
   // AddMealItemForm Props
-  const [meals, setMeals] = useState([])
-  const [openMealForm, setOpenMealForm] = useState(false)
-  const [mealTime, setMealTime] = useState('')
-  const [options, setOptions] = useState(defaultOptions)
-  const [searchValue, setSearchValue] = useState('')
-  const [selectedRecipe, setSelectedRecipe] = useState(null)
-  const [serving, setServing] = useState(0)
-  const onOpenMealForm = () => setOpenMealForm(true)
-  const onCloseMealForm = () => setOpenMealForm(undefined)
-  const onSubmitMealItem = newMeal => {
-    setMeals([newMeal, ...meals])
-    onCloseMealForm()
-  }
+  const [meals, setMeals] = useState([]);
+  const [openMealForm, setOpenMealForm] = useState(false);
+  const [mealTime, setMealTime] = useState('');
+  const [options, setOptions] = useState(defaultOptions);
+  const [searchValue, setSearchValue] = useState('');
+  const [selectedRecipe, setSelectedRecipe] = useState(null);
+  const [serving, setServing] = useState(0);
+  const onOpenMealForm = () => setOpenMealForm(true);
+  const onCloseMealForm = () => setOpenMealForm(false);
+  const onSubmitMealItem = (newMeal) => {
+    console.log(meals, newMeal);
+    setMeals([...meals, newMeal]);
+    onCloseMealForm();
+  };
 
   // ConfirmationModal Props
-  const [openConfirmation, setOpenConfirmation] = useState(false)
+  const [openConfirmation, setOpenConfirmation] = useState(false);
   const onOpenConfirmation = () => {
-    setOpenConfirmation(true)
-  }
+    setOpenConfirmation(true);
+  };
   const onCloseConfirmation = () => {
-    setOpenConfirmation(undefined)
-  }
+    setOpenConfirmation(undefined);
+  };
   // const submitMealPlan = async () => {
   //   console.log('submit')
 
@@ -84,26 +85,26 @@ const CreateMealPlan = () => {
   //   })
   // }
 
-  const submitMealPlan = async () => {
+  const submitMealPlan = useCallback(async () => {
     await Api.createMealPlan(accessToken, {
       customer_id: state.user_id,
       start_date: moment(startDate).format('YYYY-MM-DD'),
       end_date: moment(endDate).format('YYYY-MM-DD'),
-      meals: meals
-    })
-    onCloseConfirmation()
-  }
+      meals: meals,
+    });
+    onCloseConfirmation();
+  }, [startDate, endDate, meals, state.user_id]);
 
   useEffect(() => {
-    const recipe = foodData.find(ele => {
-      return ele.recipe === searchValue
-    })
-    setSelectedRecipe(recipe)
-  }, [searchValue])
+    const recipe = foodData.find((ele) => {
+      return ele.recipe === searchValue;
+    });
+    setSelectedRecipe(recipe);
+  }, [searchValue]);
 
   useEffect(() => {
-    setCurrDate(startDate)
-  }, [startDate])
+    setCurrDate(startDate);
+  }, [startDate]);
 
   return (
     <>
@@ -125,10 +126,10 @@ const CreateMealPlan = () => {
             goPreviousDay={goPreviousDay}
           />
 
-          <Box fill align='center' justify='center'>
+          <Box fill align="center" justify="center">
             <Button
               icon={<Add />}
-              label='Add Meal Item'
+              label="Add Meal Item"
               onClick={onOpenMealForm}
             />
             {openMealForm && (
@@ -149,8 +150,8 @@ const CreateMealPlan = () => {
               />
             )}
 
-            <Box align='center' pad='medium'>
-              <Button label='Submit Meal Plan' onClick={onOpenConfirmation} />
+            <Box align="center" pad="medium">
+              <Button label="Submit Meal Plan" onClick={onOpenConfirmation} />
             </Box>
 
             {openConfirmation && (
@@ -165,7 +166,7 @@ const CreateMealPlan = () => {
         </>
       )}
     </>
-  )
-}
+  );
+};
 
-export default CreateMealPlan
+export default CreateMealPlan;
