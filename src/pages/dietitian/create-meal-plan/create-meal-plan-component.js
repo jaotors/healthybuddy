@@ -254,7 +254,7 @@ export const ConfirmationModal = ({
   onCloseConfirmation,
   setOpenConfirmation,
   openConfirmation,
-  submitMealPLan
+  submitMealPlan
 }) => {
   return (
     <Layer
@@ -278,7 +278,13 @@ export const ConfirmationModal = ({
           justify='end'
           pad={{ top: 'medium', bottom: 'small' }}
         >
-          <Button label='Submit' onClick={submitMealPLan} color='dark-3' />
+          <Button
+            label='Submit'
+            onClick={() => {
+              submitMealPlan()
+            }}
+            color='dark-3'
+          />
           <Button
             label={
               <Text color='white'>

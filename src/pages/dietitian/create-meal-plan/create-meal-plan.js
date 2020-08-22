@@ -12,11 +12,14 @@ import React, { useEffect, useState } from 'react'
 import { Add } from 'grommet-icons'
 import { foodData } from '../../../fixtures/foodData'
 import moment from 'moment'
+import { useLocation } from 'react-router-dom'
 
 const defaultOptions = foodData.map(food => food.recipe)
 const accessToken = localStorage.getItem('access_token')
 
 const CreateMealPlan = () => {
+  const { state } = useLocation()
+
   // RangeSelector Props
   const [startDate, setstartDate] = useState('')
   const [endDate, setEndDate] = useState('')
@@ -58,9 +61,11 @@ const CreateMealPlan = () => {
     setOpenConfirmation(undefined)
   }
   const submitMealPlan = async () => {
+    console.log('submit')
     await Api.createMealPlan(accessToken, {
-      start_date: moment(startDate.format('YYYY-MM-DD')),
-      end_date: moment(endDate.format('YYYY-MM-DD')),
+      customer_id: state.user_id,
+      start_date: moment(startDate).format('YYYY-MM-DD'),
+      end_date: moment(endDate).format('YYYY-MM-DD'),
       entries: meals
     })
     onCloseConfirmation()
