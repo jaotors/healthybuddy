@@ -90,7 +90,7 @@ const CreateMealPlan = () => {
       title: 'Test',
       remarks: '',
       description: 'what',
-      customer_id: state.user_id,
+      customer_id: state.id,
       start_date: moment(startDate).format('YYYY-MM-DD'),
       end_date: moment(endDate).format('YYYY-MM-DD'),
       meals: meals,
