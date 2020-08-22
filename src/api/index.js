@@ -37,10 +37,10 @@ export const getDietitian = async token => {
 
 export const createMealPlan = async (token, params) => {
   const data = await Request.post('/dietitian/meal', {
+    params,
     headers: {
       Authorization: `Bearer ${token}`
-    },
-    params
+    }
   })
 
   return data

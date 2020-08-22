@@ -60,13 +60,36 @@ const CreateMealPlan = () => {
   const onCloseConfirmation = () => {
     setOpenConfirmation(undefined)
   }
+  // const submitMealPlan = async () => {
+  //   console.log('submit')
+
+  //   await Api.createMealPlan(accessToken, {
+  //     start_date: '2020-09-18',
+  //     end_date: '2020-09-20',
+  //     title: 'High Protein Diet, Low Carb Diet',
+  //     remarks: 'Please follow diet strictly and eat on time',
+  //     description: '80% protein, 20% carb diet for beginners.',
+  //     customer_id: 5,
+  //     meals: [
+  //       {
+  //         food_name: 'Caesar Salad',
+  //         carb: 10.5,
+  //         fat: 5.2,
+  //         calories: 120,
+  //         meal_time: 'snack',
+  //         description: 'Can be after dinner or after lunch',
+  //         date: '2020-09-18'
+  //       }
+  //     ]
+  //   })
+  // }
+
   const submitMealPlan = async () => {
-    console.log('submit')
     await Api.createMealPlan(accessToken, {
       customer_id: state.user_id,
       start_date: moment(startDate).format('YYYY-MM-DD'),
       end_date: moment(endDate).format('YYYY-MM-DD'),
-      entries: meals
+      meals: meals
     })
     onCloseConfirmation()
   }
