@@ -76,7 +76,7 @@ export const MyDietitian = ({ dietitian }) => {
               width: 100%;
               height: 100%;
             `}
-            src="https://placedog.net/500"
+            src="https://i.pinimg.com/originals/be/2d/30/be2d307e7f0004d3b014ee1120756a93.png"
             alt=""
           />
         </div>
