@@ -1,53 +1,50 @@
-import 'styled-components/macro'
+import React, { useState } from 'react';
+import 'styled-components/macro';
 
-import * as Api from '../../api'
+import * as Api from '../../api';
 
-import React, { useState } from 'react'
-
-import { Box } from 'grommet'
-import Loading from '../../components/loading'
-import { LoginForm } from './login-components'
-import { useNavigate } from 'react-router-dom'
+import { Box } from 'grommet';
+import Loading from '../../components/loading';
+import { LoginForm } from './login-components';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
-  const navigate = useNavigate()
-  const [opened, setOpened] = useState()
+  const navigate = useNavigate();
+  const [opened, setOpened] = useState();
   const onClick = async ({ email, password }) => {
-    setOpened(true)
+    setOpened(true);
     try {
-      const { data } = await Api.login({
-        email_address: email,
-        password: password
-      })
-      localStorage.setItem('access_token', data.access_token)
-      setOpened(false)
+      const { data } = await Api.login({ email_address: email, password });
+      localStorage.setItem('access_token', data.access_token);
+      localStorage.setItem('user_type', data.user_type);
+      setOpened(false);
 
       switch (data.user_type) {
         case 'dietitian':
-          navigate('/dietitian')
-          break
+          navigate('/dietitian');
+          break;
         case 'customer':
-          navigate('/customer')
-          break
+          navigate('/customer');
+          break;
         default:
-          navigate('')
-          break
+          navigate('');
+          break;
       }
     } catch (error) {
-      setOpened(false)
+      setOpened(false);
     }
-  }
+  };
 
   const onClose = () => {
-    setOpened(false)
-  }
+    setOpened(false);
+  };
 
   return (
     <>
       <Box
-        direction='row'
-        justify='center'
-        alignContent='center'
+        direction="row"
+        justify="center"
+        alignContent="center"
         css={`
           width: 25%;
         `}
@@ -56,7 +53,7 @@ const Login = () => {
       </Box>
       {opened && <Loading onClose={onClose} />}
     </>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;

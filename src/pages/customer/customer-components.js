@@ -42,7 +42,7 @@ export const CustomerCalendar = ({ start, end }) => {
         border-left: 1px solid #444;
       `}
     >
-      <Calendar disabled={true} dates={[[start, end]]} range />
+      <Calendar dates={[[start, end]]} range />
     </div>
   );
 };
@@ -145,7 +145,7 @@ export const MealDay = ({ meal }) => {
                 </span>
               )}
             </Heading>
-            <Text>{m.meal.map(f => `${f.food} (${f.calories} kcal)`)}</Text>
+            <Text>{m.meal.map((f) => `${f.food} (${f.calories} kcal) `)}</Text>
           </Box>
         ))}
       </Box>

@@ -8,13 +8,13 @@ import {
   MealDay,
 } from './customer-components';
 import * as Api from '../../api';
-import groupedBy from '../../utils/groupedBy';
+import groupedByMealTime from '../../utils/grouped-by-meal-time';
 import Loading from '../../components/loading';
 
 const INITIAL_DATA = {
   firstname: '',
-  start: '',
-  end: '',
+  start: '2020-08-22',
+  end: '2020-08-22',
   dietitian: {
     specialty: '',
     firstname: '',
@@ -43,7 +43,7 @@ const Customer = () => {
         end: data.meal_plan.end_date,
         meal: {
           description: data.meal_plan.description,
-          plan: groupedBy('meal_time', data.meal_plan.entries),
+          plan: groupedByMealTime(data.meal_plan.entries),
         },
         dietitian: {
           specialty: data.dietitian.specialty.replace('_', ' '),
@@ -53,11 +53,8 @@ const Customer = () => {
         firstname: data.user.first_name,
       });
       setOpened(false);
-      console.log('data', data);
     })();
   }, []);
-
-  console.log(info.meal);
 
   return (
     <Layout>

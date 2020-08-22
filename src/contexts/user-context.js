@@ -1,10 +1,10 @@
-import React, { createContext, useEffect, useState } from 'react'
+import React, { createContext, useState } from 'react';
 
-export const UserContext = createContext()
+export const UserContext = createContext();
 
-export const UserProvider = props => {
+export const UserProvider = (props) => {
   // initial state of user
-  const [user, setUser] = useState({})
+  const [user, setUser] = useState({});
 
   // useEffect(() => {
   //   /* fetch initial state of user here */
@@ -25,5 +25,5 @@ export const UserProvider = props => {
     <UserContext.Provider value={[user, setUser]}>
       {props.children}
     </UserContext.Provider>
-  )
-}
+  );
+};

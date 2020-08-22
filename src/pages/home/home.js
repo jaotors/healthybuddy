@@ -1,9 +1,10 @@
-import React, { useState, useCallback, useContext } from 'react';
+import React, { useState, useCallback, useContext, useEffect } from 'react';
 import 'styled-components/macro';
-
-import { DietitianContext } from '../../contexts/dietitians-context';
 import { Box, Button } from 'grommet';
 import { LinkPrevious } from 'grommet-icons';
+import { useNavigate } from 'react-router-dom';
+
+import { DietitianContext } from '../../contexts/dietitians-context';
 
 import { registerCustomer } from '../../api';
 import {
@@ -19,6 +20,7 @@ const INITIAL_DATA = {
 };
 
 const Home = () => {
+  const navigate = useNavigate();
   const [steps, setSteps] = useState(0);
   const [data, setData] = useState(INITIAL_DATA);
   const [dietitians] = useContext(DietitianContext);
@@ -79,6 +81,21 @@ const Home = () => {
         return <GetStarted onClick={onStart} />;
     }
   }, [steps, dietitians, onRegister]);
+
+  useEffect(() => {
+    const userType = localStorage.getItem('user_type');
+
+    switch (userType) {
+      case 'customer':
+        navigate('/customer');
+        break;
+      case 'dietitian':
+        navigate('/dietitian');
+        break;
+      default:
+        break;
+    }
+  }, []);
 
   return (
     <Box
