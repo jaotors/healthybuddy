@@ -16,7 +16,6 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import Button from '../../../components/button';
 
 const defaultOptions = foodData.map((food) => food.recipe);
-const accessToken = localStorage.getItem('access_token');
 
 const CreateMealPlan = () => {
   const navigate = useNavigate();
@@ -86,6 +85,7 @@ const CreateMealPlan = () => {
   // }
 
   const submitMealPlan = useCallback(async () => {
+    const accessToken = localStorage.getItem('access_token');
     await Api.createMealPlan(accessToken, {
       title: 'Test',
       remarks: '',
@@ -97,7 +97,7 @@ const CreateMealPlan = () => {
     });
     onCloseConfirmation();
     navigate('/dietitian');
-  }, [navigate, startDate, endDate, meals, state.user_id]);
+  }, [navigate, startDate, endDate, meals, state.id]);
 
   useEffect(() => {
     const recipe = foodData.find((ele) => {

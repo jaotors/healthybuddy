@@ -40,7 +40,6 @@ export const createMealPlan = async (token, params) => {
     params,
     headers: {
       Authorization: `Bearer ${token}`,
-      'Content-Type': 'application/json'
     }
   })
 
