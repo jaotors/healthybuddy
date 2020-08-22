@@ -115,7 +115,6 @@ export const MealDay = ({ meal }) => {
             `}
           >
             <Heading margin="none">Meal for the Day</Heading>
-            <Text>{meal.description}</Text>
           </Box>
           <Box
             direction="column"

@@ -12,13 +12,14 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { Add } from 'grommet-icons';
 import { foodData } from '../../../fixtures/foodData';
 import moment from 'moment';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Button from '../../../components/button';
 
 const defaultOptions = foodData.map((food) => food.recipe);
 const accessToken = localStorage.getItem('access_token');
 
 const CreateMealPlan = () => {
+  const navigate = useNavigate();
   const { state } = useLocation();
 
   // RangeSelector Props
@@ -86,16 +87,17 @@ const CreateMealPlan = () => {
 
   const submitMealPlan = useCallback(async () => {
     await Api.createMealPlan(accessToken, {
-      title: "Test",
-      remarks: "",
-      description: "what",
+      title: 'Test',
+      remarks: '',
+      description: 'what',
       customer_id: state.user_id,
       start_date: moment(startDate).format('YYYY-MM-DD'),
       end_date: moment(endDate).format('YYYY-MM-DD'),
       meals: meals,
     });
     onCloseConfirmation();
-  }, [startDate, endDate, meals, state.user_id]);
+    navigate('/');
+  }, [navigate, startDate, endDate, meals, state.user_id]);
 
   useEffect(() => {
     const recipe = foodData.find((ele) => {
