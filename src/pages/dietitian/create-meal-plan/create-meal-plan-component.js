@@ -43,7 +43,12 @@ export const RangeSelector = ({
   )
 }
 
-export const MealPlanDataTable = ({ currDate, meals }) => {
+export const MealPlanDataTable = ({
+  currDate,
+  meals,
+  goPreviousDay,
+  goNextDay
+}) => {
   const columnsThemeSize = [
     { property: 'food', header: 'Food', size: 'small' },
     { property: 'grams', header: 'Grams', size: 'xsmall' },
@@ -56,11 +61,11 @@ export const MealPlanDataTable = ({ currDate, meals }) => {
   return (
     <>
       <Box direction='row' justify='center'>
-        <CaretPrevious color='brand' size='large' />
+        <CaretPrevious color='brand' size='large' onClick={goPreviousDay} />
         <Box border width='large' justify='center' align='center'>
           <Text>{currDate}</Text>
         </Box>
-        <CaretNext color='brand' size='large' />
+        <CaretNext color='brand' size='large' onClick={goNextDay} />
       </Box>
       <Text>Breakfast</Text>
       <DataTable

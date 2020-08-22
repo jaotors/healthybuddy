@@ -1,5 +1,3 @@
-import {} from 'grommet-icons'
-
 import {
   AddMealItemForm,
   ConfirmationModal,
@@ -24,6 +22,7 @@ import { Add } from 'grommet-icons'
 import { DateInput } from 'grommet'
 import { calculateTotalCalories } from '../../../utils/calorieCalc'
 import { foodData } from '../../../fixtures/foodData'
+import moment from 'moment'
 
 const defaultOptions = foodData.map(food => food.recipe)
 
@@ -47,6 +46,20 @@ const CreateMealPlan = () => {
   const onSubmitMealItem = newMeal => {
     setMeals([newMeal, ...meals])
     onCloseMealForm()
+  }
+
+  const goPreviousDay = () => {
+    const previousDate = moment(currDate).subtract(1, 'days')
+    const currentDate = moment(currDate)
+
+    setCurrDate(previousDate.format())
+  }
+
+  const goNextDay = () => {
+    const nextDate = moment(currDate).add(1, 'days')
+    const currentDate = moment(currDate)
+
+    setCurrDate(nextDate.format('MM/DD/YYYY'))
   }
 
   // ConfirmationModal Props
@@ -82,7 +95,12 @@ const CreateMealPlan = () => {
         />
       ) : (
         <>
-          <MealPlanDataTable currDate={currDate} meals={meals} />
+          <MealPlanDataTable
+            currDate={currDate}
+            meals={meals}
+            goNextDay={goNextDay}
+            goPreviousDay={goPreviousDay}
+          />
 
           <Box fill align='center' justify='center'>
             <Button

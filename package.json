@@ -10,6 +10,7 @@
     "grommet-icons": "^4.4.0",
     "history": "^5.0.0",
     "jsonwebtoken": "^8.5.1",
+    "moment": "^2.27.0",
     "qs": "^6.9.4",
     "react": "^16.13.1",
     "react-autosuggest": "^10.0.2",
