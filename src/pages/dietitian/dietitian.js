@@ -6,8 +6,6 @@ import React, { useContext, useEffect, useState } from 'react'
 import { UserContext } from '../../contexts/user-context'
 import { useNavigate } from 'react-router'
 
-const accessToken = localStorage.getItem('access_token')
-
 const Dietitian = () => {
   const [user, setUser] = useContext(UserContext)
   const [customers, setCustomers] = useState(null)
@@ -22,6 +20,7 @@ const Dietitian = () => {
   }, [user])
 
   const fetchDietitian = async () => {
+    const accessToken = await localStorage.getItem('access_token')
     const { data } = await Api.getDietitian(accessToken)
     await setUser(data)
   }
@@ -42,7 +41,6 @@ const Dietitian = () => {
 
   return (
     <Box>
-      {console.log(user)}
       {customers && (
         <List data={customers} pad='medium'>
           {(datum, index) => (
