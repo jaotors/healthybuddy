@@ -1,5 +1,6 @@
 import React, { useState, useCallback } from 'react';
-import styled from 'styled-components/macro';
+import 'styled-components/macro';
+
 import {
   Box,
   Heading,
@@ -252,6 +253,7 @@ export const RegisterPage = ({ onRegister }) => {
     allergies,
     weight,
     height,
+    onRegister,
   ]);
 
   return (
