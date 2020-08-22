@@ -103,52 +103,62 @@ export const MealDay = ({ meal }) => {
         padding: 20px;
         border-top: 1px solid #444;
         border-left: 1px solid #444;
+        ${meal.plan.length < 1 && `display: grid; place-items: center;`}
       `}
     >
-      <Box
-        direction="column"
-        css={`
-          margin-bottom: 15px;
-        `}
-      >
-        <Heading margin="none">Meal for the Day</Heading>
-        <Text>{meal.description}</Text>
-      </Box>
-      <Box
-        direction="column"
-        css={`
-          & > div:not(:last-child) {
-            margin-bottom: 20px;
-          }
-        `}
-      >
-        {meal.plan.map((m, key) => (
-          <Box direction="column" key={key}>
-            <Heading
-              level={4}
-              margin="none"
-              css={`
-                text-transform: capitalize;
-              `}
-            >
-              {m.time}{' '}
-              {m.description && (
-                <span
+      {meal.plan.length > 0 ? (
+        <>
+          <Box
+            direction="column"
+            css={`
+              margin-bottom: 15px;
+            `}
+          >
+            <Heading margin="none">Meal for the Day</Heading>
+            <Text>{meal.description}</Text>
+          </Box>
+          <Box
+            direction="column"
+            css={`
+              ${meal.plan.length < 1 && `display: grid; place-items: center;`}
+              & > div:not(:last-child) {
+                margin-bottom: 20px;
+              }
+            `}
+          >
+            {meal.plan.map((m, key) => (
+              <Box direction="column" key={key}>
+                <Heading
+                  level={4}
+                  margin="none"
                   css={`
-                    font-size: 13px;
-                    font-weight: normal;
-                    text-transform: none;
-                    vertical-align: middle;
+                    text-transform: capitalize;
                   `}
                 >
-                  ({m.description})
-                </span>
-              )}
-            </Heading>
-            <Text>{m.meal.map((f) => `${f.food} (${f.calories} kcal) `)}</Text>
+                  {m.time}{' '}
+                  {m.description && (
+                    <span
+                      css={`
+                        font-size: 13px;
+                        font-weight: normal;
+                        text-transform: none;
+                        vertical-align: middle;
+                      `}
+                    >
+                      ({m.description})
+                    </span>
+                  )}
+                </Heading>
+                <Text>
+                  {m.meal.map((f) => `${f.food} (${f.calories} kcal) `)}
+                </Text>
+              </Box>
+            ))}
           </Box>
-        ))}
-      </Box>
+        </>
+      ) : (
+        <Heading level="3">No Meal Plan yet</Heading>
+      )}
     </div>
   );
 };
