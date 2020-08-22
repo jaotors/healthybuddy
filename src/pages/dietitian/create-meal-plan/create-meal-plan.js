@@ -48,7 +48,6 @@ const CreateMealPlan = () => {
   const onOpenMealForm = () => setOpenMealForm(true);
   const onCloseMealForm = () => setOpenMealForm(false);
   const onSubmitMealItem = (newMeal) => {
-    console.log(meals, newMeal);
     setMeals([...meals, newMeal]);
     onCloseMealForm();
   };

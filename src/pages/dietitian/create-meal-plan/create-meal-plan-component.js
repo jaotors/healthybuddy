@@ -62,7 +62,7 @@ export const RangeSelector = ({
           margin-bottom: 10px;
         `}
       />
-      <Button label="Cancel" onClick={() => navigate('/')} />
+      <Button label="Cancel" onClick={() => navigate('/dietitian')} />
     </Box>
   );
 };
@@ -74,7 +74,7 @@ export const MealPlanDataTable = ({
   goNextDay,
 }) => {
   const columnsThemeSize = [
-    { property: 'food', header: 'Food', size: 'small' },
+    { property: 'food_name', header: 'Food', size: 'small' },
     { property: 'grams', header: 'Grams', size: 'xsmall' },
     { property: 'calories', header: 'Calories', size: 'xsmall' },
     { property: 'protein', header: 'Protein', size: 'xsmall' },
@@ -101,7 +101,16 @@ export const MealPlanDataTable = ({
         columns={columnsThemeSize}
         data={meals.filter(
           (meal) => meal.meal_time.toLowerCase() === 'breakfast'
-        )}
+        ).map(i => {
+          return {
+            ...i,
+              carb: i.carb.toFixed(2),
+              calories: i.calories.toFixed(2),
+              fat: i.fat.toFixed(2),
+              grams: i.grams.toFixed(2),
+              protein: i.protein.toFixed(2),
+          }
+        })}
         primaryKey={false}
         border
         background={{
@@ -114,7 +123,16 @@ export const MealPlanDataTable = ({
       <DataTable
         pad={{ horizontal: 'medium' }}
         columns={columnsThemeSize}
-        data={meals.filter((meal) => meal.meal_time.toLowerCase() === 'lunch')}
+        data={meals.filter((meal) => meal.meal_time.toLowerCase() === 'lunch').map(i => {
+          return {
+            ...i,
+              carb: i.carb.toFixed(2),
+              calories: i.calories.toFixed(2),
+              fat: i.fat.toFixed(2),
+              grams: i.grams.toFixed(2),
+              protein: i.protein.toFixed(2),
+          }
+        })}
         primaryKey={false}
         border
         background={{
@@ -127,7 +145,16 @@ export const MealPlanDataTable = ({
       <DataTable
         pad={{ horizontal: 'medium' }}
         columns={columnsThemeSize}
-        data={meals.filter((meal) => meal.meal_time.toLowerCase() === 'dinner')}
+        data={meals.filter((meal) => meal.meal_time.toLowerCase() === 'dinner').map(i => {
+          return {
+            ...i,
+              carb: i.carb.toFixed(2),
+              calories: i.calories.toFixed(2),
+              fat: i.fat.toFixed(2),
+              grams: i.grams.toFixed(2),
+              protein: i.protein.toFixed(2),
+          }
+        })}
         primaryKey={false}
         border
         background={{
@@ -222,7 +249,7 @@ export const AddMealItemForm = ({
                 disabled
                 value={
                   selectedRecipe &&
-                  `${calculateTotalCalories(selectedRecipe, serving)} kcal`
+                  `${calculateTotalCalories(selectedRecipe, serving).toFixed(2)} kcal`
                 }
               />
             </FormField>
@@ -231,7 +258,7 @@ export const AddMealItemForm = ({
                 disabled
                 value={
                   selectedRecipe &&
-                  `${(selectedRecipe.fat * serving) / 10} grams`
+                  `${((selectedRecipe.fat * serving) / 10).toFixed(2)} grams`
                 }
               />
             </FormField>
@@ -240,7 +267,7 @@ export const AddMealItemForm = ({
                 disabled
                 value={
                   selectedRecipe &&
-                  `${(selectedRecipe.protein * serving) / 10} grams`
+                  `${((selectedRecipe.protein * serving) / 10).toFixed(2)} grams`
                 }
               />
             </FormField>
@@ -249,7 +276,7 @@ export const AddMealItemForm = ({
                 disabled
                 value={
                   selectedRecipe &&
-                  `${(selectedRecipe.carb * serving) / 10} grams`
+                  `${((selectedRecipe.carb * serving) / 10).toFixed(2)} grams`
                 }
               />
             </FormField>
@@ -262,7 +289,7 @@ export const AddMealItemForm = ({
               onClick={(event) => {
                 event.preventDefault();
                 onSubmitMealItem({
-                  date: currDate,
+                  date: moment(currDate).format('YYYY-MM-DD'),
                   food_name: selectedRecipe.recipe,
                   grams: parseFloat(serving),
                   fat: ((selectedRecipe.fat * serving) / 10),

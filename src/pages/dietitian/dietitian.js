@@ -68,20 +68,30 @@ const Dietitian = () => {
               size="xsmall"
               align="center"
             >
-              <Box width="33%">
-                <Text weight="bold">
+              <Box width="25%">
+                <img
+                  css={`
+                    width: 50%;
+                    height: 50%;
+                  `}
+                  src="https://i.pinimg.com/originals/be/2d/30/be2d307e7f0004d3b014ee1120756a93.png"
+                  alt="avatar"
+                />
+              </Box>
+              <Box width="25%">
+                  <Text weight="bold">
                   {`${datum.user.first_name} ${datum.user.last_name}`}
                 </Text>
                 <Text>Goal: {datum.goal}</Text>
                 <Text>Allergy: {datum.allergy}</Text>
                 <Text>Height: {datum.height}</Text>
               </Box>
-              <Box width="33%">
+              <Box width="25%">
                 <Text>Weight: {datum.weight}</Text>
                 <Text>Gender: {datum.gender}</Text>
                 <Text>Dietary Preferences: {datum.dietary_preference}</Text>
               </Box>
-              <Box width="33%" justify="end" align="end" alignContent="end">
+              <Box width="25%" justify="end" align="end" alignContent="end">
                 <Button
                   color="custom-primary"
                   onClick={() => onCreatePlan(datum)}
