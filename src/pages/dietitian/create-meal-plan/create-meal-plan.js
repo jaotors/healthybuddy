@@ -96,7 +96,7 @@ const CreateMealPlan = () => {
       meals: meals,
     });
     onCloseConfirmation();
-    navigate('/');
+    navigate('/dietitian');
   }, [navigate, startDate, endDate, meals, state.user_id]);
 
   useEffect(() => {
