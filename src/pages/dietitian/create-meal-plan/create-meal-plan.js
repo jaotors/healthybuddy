@@ -23,7 +23,7 @@ import React, { useEffect, useState } from 'react'
 import { Add } from 'grommet-icons'
 import { DateInput } from 'grommet'
 import { calculateTotalCalories } from '../../../utils/calorieCalc'
-import { foodData } from '../../../utils/foodData'
+import { foodData } from '../../../fixtures/foodData'
 
 const defaultOptions = foodData.map(food => food.recipe)
 
